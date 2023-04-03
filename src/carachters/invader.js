@@ -3,7 +3,7 @@ import { canvas, ctx } from "../../index.js";
 const imgUrl = '../../images/invader.png';
 
 class Invader {
-    constructor() {
+    constructor({ position }) {
         this.velocity = {
             x: 0,
             y: 0,
@@ -18,8 +18,8 @@ class Invader {
             this.width = image.width;
             this.height = image.height;
             this.position = {
-                x: canvas.width / 2,
-                y: canvas.height / 2,
+                x: position.x,
+                y: position.y,
             };
         }
     }
@@ -30,11 +30,11 @@ class Invader {
         }
     }
 
-    update() {
+    update({ velocity }) {
         if (this.image) {
             this.draw();
-            this.position.x += this.velocity.x;
-            this.position.y += this.velocity.y;
+            this.position.x += velocity.x;
+            this.position.y += velocity.y;
         }
     }
 }

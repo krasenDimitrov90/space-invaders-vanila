@@ -1,6 +1,6 @@
 import Player from "./src/carachters/player.js";
 import Projectile from "./src/carachters/projectile.js";
-import Invader from "./src/carachters/invader.js";
+import InvadersGrid from "./src/invadersGrid.js";
 
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
@@ -9,8 +9,8 @@ canvas.width = innerWidth;
 canvas.height = innerHeight;
 
 const player = new Player();
-const invader = new Invader();
 const projectiles = [];
+const invadersGrid = [new InvadersGrid()];
 
 const keys = {
     a: { pressed: false },
@@ -24,7 +24,12 @@ function animate() {
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     player.update();
-    invader.update();
+    invadersGrid.forEach(grid => {
+        grid.update();
+        grid.invaders.forEach(invader => {
+            invader.update({ velocity: grid.velocity });
+        });
+    });
 
     projectiles.forEach((p, index) => {
         if (p.position.y < 0) {
