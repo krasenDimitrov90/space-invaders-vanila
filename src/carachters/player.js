@@ -19,7 +19,7 @@ class Player {
             this.height = image.height * 0.15;
             this.position = {
                 x: canvas.width / 2,
-                y: canvas.height / 2,
+                y: canvas.height - 50,
             };
         }
     }
@@ -27,6 +27,14 @@ class Player {
     draw() {
         if (this.image) {
             ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
+        }
+    }
+
+    update() {
+        if (this.image) {
+            this.draw();
+            this.position.x += this.velocity.x;
+            this.position.y += this.velocity.y;
         }
     }
 }
