@@ -1,0 +1,17 @@
+{
+  "name": "space-invaders-vanila",
+  "version": "1.0.0",
+  "description": "\"# space-invaders-vanila\" \r \"# space-invaders-vanila\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "lite-server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^14.1.1",
+    "lite-server": "^2.6.1"
+  }
+}
