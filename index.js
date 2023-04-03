@@ -1,5 +1,6 @@
 import Player from "./src/carachters/player.js";
 import Projectile from "./src/carachters/projectile.js";
+import Invader from "./src/carachters/invader.js";
 
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
@@ -8,6 +9,7 @@ canvas.width = innerWidth;
 canvas.height = innerHeight;
 
 const player = new Player();
+const invader = new Invader();
 const projectiles = [];
 
 const keys = {
@@ -22,6 +24,7 @@ function animate() {
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     player.update();
+    invader.update();
 
     projectiles.forEach((p, index) => {
         if (p.position.y < 0) {
