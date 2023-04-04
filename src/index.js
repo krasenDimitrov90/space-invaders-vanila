@@ -1,8 +1,9 @@
-const startScreenEl = document.querySelector('.start-screen');
-const gameScreenEl = document.querySelector('.game-screen');
+import { startGame } from "./game/gameEngine.js";
+
 
 document.querySelector('.start-btn')
     .addEventListener('click', () => {
-        gameScreenEl.classList.remove("hidden");
-        startScreenEl.classList.add("hidden");
+        document.querySelector('.game-screen').classList.remove("hidden");
+        document.querySelector('.start-screen').classList.add("hidden");
+        startGame();
     })
