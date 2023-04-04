@@ -1,13 +1,5 @@
-const spaceCraft = {
-    position: {
-        x: 25,
-        y: 100,
-    },
-    velocity: {
-        x: 5,
-        y: 5,
-    },
-};
+import { SpaceCraft } from "./gameCharachters.js";
+
 
 export const preseedKeys = {
     'ArrowUp': false,
@@ -22,14 +14,18 @@ const screenDimentsions = {
 };
 
 const initGame = () => {
-    const gameContainerEL = document.querySelector('.game-screen');
 
-    const spaceCraftEl = document.createElement('div');
-    spaceCraftEl.classList.add('spacecraft');
-    spaceCraftEl.style.left = spaceCraft.position.x + 'px';
-    spaceCraftEl.style.top = spaceCraft.position.y + 'px';
+    const position = {
+        x: 100,
+        y: 100,
+    };
+    const velocity = {
+        x: 0,
+        y: 0,
+    }
+    const spaceCraftEl = new SpaceCraft({ position, velocity });
 
-    gameContainerEL.appendChild(spaceCraftEl);
+    console.log(spaceCraftEl);
 
     window.requestAnimationFrame(animate.bind(null, spaceCraftEl));
 
@@ -37,42 +33,50 @@ const initGame = () => {
 
 const moveSpaceCraft = (spaceCraftEl) => {
 
-    const left = parseInt(spaceCraftEl.style.left);
-    const top = parseInt(spaceCraftEl.style.top);
 
-    if (preseedKeys.ArrowUp && top >= 0) {
-        spaceCraftEl.style.top = top - spaceCraft.velocity.y + 'px';
-    }
-    
-    if (preseedKeys.ArrowDown && top + 64 <= screenDimentsions.height) {
-        spaceCraftEl.style.top = top + spaceCraft.velocity.y + 'px';
-    }
-
-    if (preseedKeys.ArrowLeft && left >= 0) {
-        spaceCraftEl.style.left = left - spaceCraft.velocity.x + 'px';
-        spaceCraftEl.classList.add('left');
+    if (preseedKeys.ArrowRight) {
+        spaceCraftEl.velocity.x = 5;
+        spaceCraftEl.element.classList.add('right');
+    } else if (preseedKeys.ArrowLeft) {
+        spaceCraftEl.velocity.x = -5;
+        spaceCraftEl.element.classList.add('left');
     } else {
-        spaceCraftEl.classList.remove('left');
+        spaceCraftEl.velocity.x = 0;
+        spaceCraftEl.element.classList.remove('right');
+        spaceCraftEl.element.classList.remove('left');
     }
 
-    if (preseedKeys.ArrowRight && left + 64 <= screenDimentsions.width) {
-        spaceCraftEl.style.left = left + spaceCraft.velocity.x + 'px';
-        spaceCraftEl.classList.add('right');
+    if (preseedKeys.ArrowUp) {
+        spaceCraftEl.velocity.y = -5;
+    } else if (preseedKeys.ArrowDown) {
+        spaceCraftEl.velocity.y = 5;
     } else {
-        spaceCraftEl.classList.remove('right');
+        spaceCraftEl.velocity.y = 0;
     }
+
+    // if (preseedKeys.ArrowDown && top + 64 <= screenDimentsions.height) {
+    //     // spaceCraftEl.style.top = top + spaceCraft.velocity.y + 'px';
+    // }
+
+    // if (preseedKeys.ArrowLeft && left >= 0) {
+    //     // spaceCraftEl.style.left = left - spaceCraft.velocity.x + 'px';
+    //     // spaceCraftEl.classList.add('left');
+    // } else {
+    //     // spaceCraftEl.classList.remove('left');
+    // }
+
+
 };
 
 const animate = (spaceCraftEl, time) => {
 
     moveSpaceCraft(spaceCraftEl);
 
-
+    spaceCraftEl.update();
 
     window.requestAnimationFrame(animate.bind(null, spaceCraftEl));
 };
 
-animate.lastTime = 0;
 
 export const startGame = () => {
     initGame();
