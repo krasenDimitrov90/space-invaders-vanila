@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    font-family: 'Bungee', cursive;
+}
+
+body {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: #3498db;
+}
+
+.start-screen.hidden,
+.game-screen.hidden {
+    display: none;
+}
+
