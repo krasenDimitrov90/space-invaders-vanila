@@ -5,12 +5,13 @@ class Projectile {
         this.position = position;
         this.velocity = velocity;
 
-        this.radius = 3;
+        this.width = 3;
+        this.height = 3;
     }
 
     draw() {
         ctx.beginPath();
-        ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
+        ctx.arc(this.position.x, this.position.y, this.width, 0, Math.PI * 2);
         ctx.fillStyle = 'red';
         ctx.fill();
         ctx.closePath();

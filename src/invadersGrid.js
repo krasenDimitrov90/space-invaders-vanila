@@ -8,7 +8,7 @@ class InvadersGrid {
             y: 0,
         };
         this.velocity = {
-            x: 5,
+            x: 0,
             y: 0,
         };
 
@@ -39,7 +39,7 @@ class InvadersGrid {
         if (this.position.x + this.width >= canvas.width ||
             this.position.x <= 0) {
             this.velocity.x = -this.velocity.x
-            this.velocity.y = 5
+            // this.velocity.y = 5
         }
     }
 }

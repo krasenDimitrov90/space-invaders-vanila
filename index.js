@@ -1,6 +1,7 @@
 import Player from "./src/carachters/player.js";
 import Projectile from "./src/carachters/projectile.js";
 import InvadersGrid from "./src/invadersGrid.js";
+import checkForColision from "./src/utils/checkForColision.js";
 
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
@@ -26,8 +27,16 @@ function animate() {
     player.update();
     invadersGrid.forEach(grid => {
         grid.update();
-        grid.invaders.forEach(invader => {
+        grid.invaders.forEach((invader, invaderIdx) => {
             invader.update({ velocity: grid.velocity });
+
+            projectiles.forEach((p, idx) => {
+                let hasColision = checkForColision(invader, p);
+                if (hasColision) {
+                    projectiles.splice(idx, 1);
+                    // grid.invaders.splice(invaderIdx, 1);
+                }
+            });
         });
     });
 
@@ -81,7 +90,6 @@ const handleKeyDown = (e) => {
                     }
                 })
             );
-            console.log(projectiles);
             break;
     }
 };
