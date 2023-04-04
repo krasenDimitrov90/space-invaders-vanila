@@ -13,6 +13,7 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: #3498db;
+    overflow: hidden;
 }
 
 .start-screen.hidden,
@@ -20,11 +21,5 @@ body {
     display: none;
 }
 
-.spacecraft {
-    position: relative;
-    background: url('/images/air-plain.png');
-    width: 64px;
-    height: 64px;
-    background-repeat: no-repeat;
-}
+
 

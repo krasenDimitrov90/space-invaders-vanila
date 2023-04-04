@@ -1,0 +1,17 @@
+.spacecraft {
+    position: relative;
+    background: url('/images/air-plain.png');
+    width: 64px;
+    height: 64px;
+    background-repeat: no-repeat;
+    /* transition: 0.1s; */
+}
+
+.spacecraft.right {
+    rotate: 30deg;
+}
+
+.spacecraft.left {
+    rotate: -30deg;
+}
+
