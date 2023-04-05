@@ -5,14 +5,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <script type="module" src="./index.js"></script>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/start-screen.css">
+    <link rel="stylesheet" href="styles/game-screen.css">
+    <script type="module" src="./src/index.js"></script>
 
     <title>Document</title>
 </head>
 
 <body>
-    <canvas></canvas>
+    <div class="start-screen">
+        <div class="btn-wrapper">
+            <button class="start-btn">Start game</button>
+        </div>
+    </div>
+
+    <div class="game-screen hidden">
+    </div>
+    <div class="game-over hidden">
+        <h1>Game Over</h1>
+        <div class="btn-wrapper">
+            <button class="start-btn">Start game</button>
+        </div>
+    </div>
+    <div class="win-game hidden">
+        <h1>You Win</h1>
+        <div class="btn-wrapper">
+            <button class="start-btn">Start game</button>
+        </div>
+    </div>
 </body>
 
 </html>

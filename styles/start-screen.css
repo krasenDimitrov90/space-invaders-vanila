@@ -1,0 +1,21 @@
+
+.start-screen {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-wrapper button {
+    width: 300px;
+    padding: 20px;
+    font-size: 20px;
+    border-radius: 50px;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.btn-wrapper button:hover {
+    background-color: #95a5a6;
+}
