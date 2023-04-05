@@ -17,11 +17,17 @@
 
 .projectile {
     position: absolute;
-    /* background: url('/images/ammo.png'); */
     background-color: red;
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    /* background-repeat: no-repeat; */
+}
+
+.ufo {
+    position: absolute;
+    background: url('/images/ufo.png');
+    width: 60px;
+    height: 60px;
+    background-repeat: no-repeat;
 }
 

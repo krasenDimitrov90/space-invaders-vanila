@@ -77,8 +77,15 @@ class Projectile extends Charachter {
     }
 }
 
+class Ufo extends Charachter {
+    constructor({ position, velocity }, className) {
+        super({ position, velocity }, className);
+    }
+}
+
 
 export {
     SpaceCraft,
     Projectile,
+    Ufo,
 }
