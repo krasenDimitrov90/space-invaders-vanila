@@ -45,8 +45,8 @@ class SpaceCraft extends Charachter {
         const posY = this.position.y;
         const width = this.width;
         const height = this.height;
-    
-        if (pressedKeys.ArrowRight && (posX + width) <=  screenDimensions.width) {
+
+        if (pressedKeys.ArrowRight && (posX + width) <= screenDimensions.width) {
             this.velocity.x = 5;
             this.element.classList.add('right');
         } else if (pressedKeys.ArrowLeft && posX >= 0) {
@@ -57,7 +57,7 @@ class SpaceCraft extends Charachter {
             this.element.classList.remove('right');
             this.element.classList.remove('left');
         }
-    
+
         if (pressedKeys.ArrowUp && posY >= 0) {
             this.velocity.y = -5;
         } else if (pressedKeys.ArrowDown && (posY + height) <= screenDimensions.height) {
@@ -81,6 +81,70 @@ class Ufo extends Charachter {
     constructor({ position, velocity }, className) {
         super({ position, velocity }, className);
     }
+
+    updateVelocity(screenDimensions, velocity) {
+        this.velocity = velocity;
+
+    }
+}
+
+class Enemies {
+    static velocity = {
+        x: 2,
+        y: 0,
+    };
+    constructor(screenWidth) {
+        this.grid = this.fillGrid(screenWidth);
+    }
+
+    fillGrid(screenWidth) {
+        let enemies = [];
+        const rows = 5;
+        const cols = 10;
+        const quaterOfScreen = screenWidth / 4;
+        for (let i = 0; i < rows; i++) {
+            enemies[i] = [];
+            for (let j = 0; j < cols; j++) {
+                enemies[i].push(new Ufo({
+                    position: { x: quaterOfScreen + (j * 60), y: i * 60 },
+                    velocity: { x: 2, y: 0 }
+                }, 'ufo'));
+            }
+        }
+        return enemies;
+    }
+
+    updateVelocity(screenDimensions) {
+        let enemiesOnEveryRowPositions = this.grid.reduce((acc, row) => {
+            let length = row.length;
+            if (length > 0) {
+                let posX = row[0].position.x;
+                acc.push(posX);
+                if (length > 1) {
+                    let posXOfLastEnemyInTheRow = row[length - 1].position.x;
+                    acc.push(posXOfLastEnemyInTheRow);
+                }
+            }
+            return acc;
+        }, []);
+
+        let mostLeftEnemiePosition = null;
+        let mostRightEnemiePosition = null;
+
+        if (enemiesOnEveryRowPositions.length > 0) {
+            mostRightEnemiePosition = Math.max(...enemiesOnEveryRowPositions);
+            mostLeftEnemiePosition = Math.min(...enemiesOnEveryRowPositions);
+
+        }
+
+        if (mostRightEnemiePosition && mostRightEnemiePosition + 60 >= screenDimensions.width) {
+            Enemies.velocity = {x: -2, y: 5};
+        } else if (mostLeftEnemiePosition && mostLeftEnemiePosition <= 0) {
+            Enemies.velocity = {x: 2, y: 5};
+        } else {
+            Enemies.velocity.y = 0;
+        }
+    }
 }
 
 
@@ -88,4 +152,5 @@ export {
     SpaceCraft,
     Projectile,
     Ufo,
+    Enemies,
 }
