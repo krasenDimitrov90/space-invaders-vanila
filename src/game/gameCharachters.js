@@ -115,32 +115,16 @@ class Enemies {
     }
 
     updateVelocity(screenDimensions) {
-        let enemiesOnEveryRowPositions = this.grid.reduce((acc, row) => {
-            let length = row.length;
-            if (length > 0) {
-                let posX = row[0].position.x;
-                acc.push(posX);
-                if (length > 1) {
-                    let posXOfLastEnemyInTheRow = row[length - 1].position.x;
-                    acc.push(posXOfLastEnemyInTheRow);
-                }
-            }
-            return acc;
-        }, []);
 
-        let mostLeftEnemiePosition = null;
-        let mostRightEnemiePosition = null;
+        const flatArray = this.grid.flat().map(({ position: { x } }) => x);
 
-        if (enemiesOnEveryRowPositions.length > 0) {
-            mostRightEnemiePosition = Math.max(...enemiesOnEveryRowPositions);
-            mostLeftEnemiePosition = Math.min(...enemiesOnEveryRowPositions);
-
-        }
+        const mostLeftEnemiePosition = Math.min(...flatArray);
+        const mostRightEnemiePosition = Math.max(...flatArray);
 
         if (mostRightEnemiePosition && mostRightEnemiePosition + 60 >= screenDimensions.width) {
-            Enemies.velocity = {x: -2, y: 5};
+            Enemies.velocity = { x: -2, y: 5 };
         } else if (mostLeftEnemiePosition && mostLeftEnemiePosition <= 0) {
-            Enemies.velocity = {x: 2, y: 5};
+            Enemies.velocity = { x: 2, y: 5 };
         } else {
             Enemies.velocity.y = 0;
         }
