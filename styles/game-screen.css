@@ -1,5 +1,6 @@
 .game-over,
 .win-game {
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,12 +24,17 @@
     rotate: -30deg;
 }
 
-.projectile {
+.projectile,
+.enemyiprojectile {
     position: absolute;
     background-color: red;
     width: 10px;
     height: 10px;
     border-radius: 50%;
+}
+
+.enemyiprojectile {
+    background-color: white;
 }
 
 .ufo {

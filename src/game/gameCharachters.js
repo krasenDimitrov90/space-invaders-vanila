@@ -80,6 +80,15 @@ class Projectile extends Charachter {
     }
 }
 
+class EnemyProjectile extends Charachter {
+    static nextSpawnTimeStamp = 0;
+    static fireRate = 200;
+
+    constructor({ position, velocity }, className) {
+        super({ position, velocity }, className);
+    }
+}
+
 class Ufo extends Charachter {
     constructor({ position, velocity }, className, dataAtribute) {
         super({ position, velocity }, className, dataAtribute);
@@ -140,4 +149,5 @@ export {
     Projectile,
     Ufo,
     Enemies,
+    EnemyProjectile,
 }

@@ -1,4 +1,4 @@
-import { SpaceCraft, Projectile, Ufo, Enemies } from "./gameCharachters.js";
+import { SpaceCraft, Projectile, Ufo, Enemies, EnemyProjectile } from "./gameCharachters.js";
 import { detectColision } from "../utils/detectColision.js";
 
 
@@ -42,24 +42,28 @@ const initGame = () => {
     }
     const spaceCraftEl = new SpaceCraft({ position, velocity }, 'spacecraft');
     const projectiles = [];
+    const enemyProjectiles = [];
     const enemies = new Enemies(screenDimensions.width);
     let gameIsOver = false;
 
-    window.requestAnimationFrame(animate.bind(null, spaceCraftEl, projectiles, enemies, gameIsOver));
+    window.requestAnimationFrame(animate.bind(null, spaceCraftEl, projectiles, enemies, enemyProjectiles, gameIsOver));
 
 };
 
 
 
-const animate = (spaceCraftEl, projectiles, enemies, gameIsOver, time) => {
+const animate = (spaceCraftEl, projectiles, enemies, enemyProjectiles, gameIsOver, time) => {
 
     if (gameIsOver) {
         return;
     }
+    const enemiesElements = document.querySelectorAll('.ufo');
 
     spaceCraftEl.moveSpaceCraft(pressedKeys, screenDimensions)
     spaceCraftEl.update();
     enemies.updateVelocity(screenDimensions);
+
+
 
 
     if (pressedKeys.Space && time > Projectile.nextSpawnTimeStamp) {
@@ -75,7 +79,31 @@ const animate = (spaceCraftEl, projectiles, enemies, gameIsOver, time) => {
         }, 'projectile'));
     }
 
+    if (time > EnemyProjectile.nextSpawnTimeStamp) {
+        let randomNumber = Math.floor(Math.random() * (2000 - 1000 + 1)) + 1000;
+        EnemyProjectile.nextSpawnTimeStamp = time + EnemyProjectile.fireRate + randomNumber;
+
+        let randomEnemie = enemiesElements[Math.floor(Math.random() * enemiesElements.length)];
+        const [row, col] = randomEnemie.getAttribute('data-index').split('-').map(Number);
+        const e = enemies.grid[row][col];
+
+        let position = {
+            x: e.position.x + e.width / 2 - 4,
+            y: e.position.y - 6,
+        }
+        let velocity = { x: 0, y: 5 }
+
+        enemyProjectiles.push(new EnemyProjectile({
+            position: position,
+            velocity: velocity,
+        }, 'enemyiprojectile'));
+    }
+
     projectiles.map((p, idx) => {
+        p.update();
+    });
+
+    enemyProjectiles.map(p => {
         p.update();
     });
 
@@ -83,10 +111,10 @@ const animate = (spaceCraftEl, projectiles, enemies, gameIsOver, time) => {
         row.map(e => {
             e.update();
             e.updateVelocity(screenDimensions, Enemies.velocity);
+
         });
     });
 
-    const enemiesElements = document.querySelectorAll('.ufo');
     if (enemiesElements.length === 0) {
         gameIsOver = true;
         endGame(true);
@@ -96,6 +124,8 @@ const animate = (spaceCraftEl, projectiles, enemies, gameIsOver, time) => {
             gameIsOver = true;
             endGame(false);
         }
+
+
     });
 
     document.querySelectorAll('.projectile')
@@ -110,15 +140,27 @@ const animate = (spaceCraftEl, projectiles, enemies, gameIsOver, time) => {
                     projectile.remove();
 
                 }
-            });
 
+            });
 
             if (posY < 0) {
                 projectile.remove();
             }
         });
 
-    window.requestAnimationFrame(animate.bind(null, spaceCraftEl, projectiles, enemies, gameIsOver));
+    document.querySelectorAll('.enemyiprojectile')
+        .forEach(p => {
+            let posY = parseInt(p.style.top);
+            if (detectColision(p, spaceCraftEl.element)) {
+                gameIsOver = true;
+                endGame(false);
+            }
+            if (posY > screenDimensions.height) {
+                p.remove();
+            }
+        });
+
+    window.requestAnimationFrame(animate.bind(null, spaceCraftEl, projectiles, enemies, enemyProjectiles, gameIsOver));
 };
 
 
