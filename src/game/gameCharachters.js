@@ -1,18 +1,17 @@
-const imgesPaths = {
-    'air-plain': '../../images/air-plain.png',
-};
 
 class Charachter {
-    constructor({ position, velocity }) {
+    constructor({ position, velocity }, className) {
         this.position = position;
         this.velocity = velocity;
-        this.element = this.createCharacter();
+        this.element = this.createCharacter(className);
+        this.width = null;
+        this.height = null;
         this.draw();
     }
 
-    createCharacter() {
+    createCharacter(className) {
         const c = document.createElement('div');
-        c.classList.add('spacecraft');
+        c.classList.add(className);
         return c;
     }
 
@@ -23,7 +22,12 @@ class Charachter {
     }
 
     update() {
-        // this.draw();
+        if (!this.width) {
+            let { width, height } = this.element.getBoundingClientRect();
+            this.width = width;
+            this.height = height;
+        }
+
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
         this.element.style.left = this.position.x + 'px';
@@ -32,20 +36,49 @@ class Charachter {
 }
 
 class SpaceCraft extends Charachter {
-    constructor({ position, velocity }, imagePath) {
-        super({ position, velocity }, imagePath);
+    constructor({ position, velocity }, className) {
+        super({ position, velocity }, className);
+    }
+
+    moveSpaceCraft(pressedKeys, screenDimensions) {
+        const posX = this.position.x;
+        const posY = this.position.y;
+        const width = this.width;
+        const height = this.height;
+    
+        if (pressedKeys.ArrowRight && (posX + width) <=  screenDimensions.width) {
+            this.velocity.x = 5;
+            this.element.classList.add('right');
+        } else if (pressedKeys.ArrowLeft && posX >= 0) {
+            this.velocity.x = -5;
+            this.element.classList.add('left');
+        } else {
+            this.velocity.x = 0;
+            this.element.classList.remove('right');
+            this.element.classList.remove('left');
+        }
+    
+        if (pressedKeys.ArrowUp && posY >= 0) {
+            this.velocity.y = -5;
+        } else if (pressedKeys.ArrowDown && (posY + height) <= screenDimensions.height) {
+            this.velocity.y = 5;
+        } else {
+            this.velocity.y = 0;
+        }
     }
 }
 
-class FireBall extends Charachter {
-    constructor({ position, velocity }) {
-        super({ position, velocity });
+class Projectile extends Charachter {
+    static nextSpawnTimeStamp = 0;
+    static fireRate = 200;
 
+    constructor({ position, velocity }, className) {
+        super({ position, velocity }, className);
     }
 }
 
 
 export {
     SpaceCraft,
-    FireBall,
+    Projectile,
 }

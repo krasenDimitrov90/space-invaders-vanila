@@ -1,5 +1,5 @@
 import { startGame } from "./game/gameEngine.js";
-import { preseedKeys } from "./game/gameEngine.js";
+import { pressedKeys } from "./game/gameEngine.js";
 
 document.querySelector('.start-btn')
     .addEventListener('click', () => {
@@ -11,9 +11,9 @@ document.querySelector('.start-btn')
 
 
 window.addEventListener('keydown', (e) => {
-    preseedKeys[e.key] = true;
+    pressedKeys[e.code] = true;
 });
 
 window.addEventListener('keyup', (e) => {
-    preseedKeys[e.key] = false;
+    pressedKeys[e.code] = false;
 });

@@ -1,5 +1,5 @@
 .spacecraft {
-    position: relative;
+    position: absolute;
     background: url('/images/air-plain.png');
     width: 64px;
     height: 64px;
@@ -13,5 +13,15 @@
 
 .spacecraft.left {
     rotate: -30deg;
+}
+
+.projectile {
+    position: absolute;
+    /* background: url('/images/ammo.png'); */
+    background-color: red;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    /* background-repeat: no-repeat; */
 }
 

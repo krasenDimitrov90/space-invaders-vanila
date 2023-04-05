@@ -3,14 +3,16 @@ const imgesPaths = {
 };
 
 class Charachter {
-    constructor({position, velocity}) {
+    constructor({position, velocity}, imagePath) {
         this.position = position;
         this.velocity = velocity;
+        this.imagePath = imagePath;
+        this.element = this.createCharacter(imagePath);
     }
 
-    createCharacter() {
+    createCharacter(path) {
         const c = document.createElement('img');
-        c.src = '../../images/'
+        c.src = imgesPaths[path];
     }
 }
 

@@ -1,14 +1,15 @@
-import { SpaceCraft } from "./gameCharachters.js";
+import { SpaceCraft, Projectile } from "./gameCharachters.js";
 
 
-export const preseedKeys = {
+export const pressedKeys = {
     'ArrowUp': false,
     'ArrowDown': false,
     'ArrowLeft': false,
     'ArrowRight': false,
+    'Space': false
 };
 
-const screenDimentsions = {
+const screenDimensions = {
     width: innerWidth,
     height: innerHeight,
 };
@@ -23,56 +24,49 @@ const initGame = () => {
         x: 0,
         y: 0,
     }
-    const spaceCraftEl = new SpaceCraft({ position, velocity });
-
-    console.log(spaceCraftEl);
+    const spaceCraftEl = new SpaceCraft({ position, velocity }, 'spacecraft');
 
     window.requestAnimationFrame(animate.bind(null, spaceCraftEl));
 
 };
 
-const moveSpaceCraft = (spaceCraftEl) => {
-
-
-    if (preseedKeys.ArrowRight) {
-        spaceCraftEl.velocity.x = 5;
-        spaceCraftEl.element.classList.add('right');
-    } else if (preseedKeys.ArrowLeft) {
-        spaceCraftEl.velocity.x = -5;
-        spaceCraftEl.element.classList.add('left');
-    } else {
-        spaceCraftEl.velocity.x = 0;
-        spaceCraftEl.element.classList.remove('right');
-        spaceCraftEl.element.classList.remove('left');
-    }
-
-    if (preseedKeys.ArrowUp) {
-        spaceCraftEl.velocity.y = -5;
-    } else if (preseedKeys.ArrowDown) {
-        spaceCraftEl.velocity.y = 5;
-    } else {
-        spaceCraftEl.velocity.y = 0;
-    }
-
-    // if (preseedKeys.ArrowDown && top + 64 <= screenDimentsions.height) {
-    //     // spaceCraftEl.style.top = top + spaceCraft.velocity.y + 'px';
-    // }
-
-    // if (preseedKeys.ArrowLeft && left >= 0) {
-    //     // spaceCraftEl.style.left = left - spaceCraft.velocity.x + 'px';
-    //     // spaceCraftEl.classList.add('left');
-    // } else {
-    //     // spaceCraftEl.classList.remove('left');
-    // }
-
-
-};
+const projectiles = [];
 
 const animate = (spaceCraftEl, time) => {
 
-    moveSpaceCraft(spaceCraftEl);
 
+    spaceCraftEl.moveSpaceCraft(pressedKeys, screenDimensions)
     spaceCraftEl.update();
+
+
+    if (pressedKeys.Space && time > Projectile.nextSpawnTimeStamp) {
+        console.log(Projectile.nextSpawnTimeStamp);
+        Projectile.nextSpawnTimeStamp = time + Projectile.fireRate;
+        let position = {
+            x: spaceCraftEl.position.x + spaceCraftEl.width / 2 - 4,
+            y: spaceCraftEl.position.y - 6,
+        }
+        let velocity = {x: 0, y: -5}
+        projectiles.push(new Projectile({
+            position: position,
+            velocity: velocity,
+        }, 'projectile'));
+    }
+
+    projectiles.map((p, idx) => {
+        p.update();
+        if (p.position.y < 0) {
+            projectiles.splice(idx, 1);
+        }
+    });
+
+    document.querySelectorAll('.projectile')
+        .forEach(projectile => {
+            let posY = parseInt(projectile.style.top);
+            if (posY < 0) {
+                projectile.remove();
+            }
+        });
 
     window.requestAnimationFrame(animate.bind(null, spaceCraftEl));
 };
