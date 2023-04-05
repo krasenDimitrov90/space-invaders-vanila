@@ -3,7 +3,7 @@ const imgesPaths = {
 };
 
 class Charachter {
-    constructor({position, velocity}, imagePath) {
+    constructor({ position, velocity }, imagePath) {
         this.position = position;
         this.velocity = velocity;
         this.imagePath = imagePath;
@@ -17,15 +17,15 @@ class Charachter {
 }
 
 class SpaceCraft extends Charachter {
-    constructor({position, velocity}) {
-        super({position, velocity});
+    constructor({ position, velocity }) {
+        super({ position, velocity });
     }
 }
 
 class FireBall extends Charachter {
-    constructor({position, velocity}) {
-        super({position, velocity});
-        
+    constructor({ position, velocity }) {
+        super({ position, velocity });
+
     }
 }
 
@@ -53,3 +53,111 @@ const spaceCraft = new SpaceCraft({
 
 console.log(fireBall);
 console.log(spaceCraft);
+
+
+[
+    {
+        "position": {
+            "x": 475.5,
+            "y": 280
+        },
+        "velocity": {
+            "x": 2,
+            "y": 0
+        },
+        "element": {},
+        "width": 60,
+        "height": 50
+    },
+    {
+        "position": {
+            "x": 535.5,
+            "y": 280
+        },
+        "velocity": {
+            "x": 2,
+            "y": 0
+        },
+        "element": {},
+        "width": 60,
+        "height": 50
+    },
+    {
+        "position": {
+            "x": 715.5,
+            "y": 280
+        },
+        "velocity": {
+            "x": 2,
+            "y": 0
+        },
+        "element": {},
+        "width": 60,
+        "height": 50
+    },
+    {
+        "position": {
+            "x": 775.5,
+            "y": 280
+        },
+        "velocity": {
+            "x": 2,
+            "y": 0
+        },
+        "element": {},
+        "width": 60,
+        "height": 50
+    },
+    {
+        "position": {
+            "x": 835.5,
+            "y": 280
+        },
+        "velocity": {
+            "x": 2,
+            "y": 0
+        },
+        "element": {},
+        "width": 60,
+        "height": 50
+    },
+    {
+        "position": {
+            "x": 895.5,
+            "y": 280
+        },
+        "velocity": {
+            "x": 2,
+            "y": 0
+        },
+        "element": {},
+        "width": 60,
+        "height": 50
+    },
+    {
+        "position": {
+            "x": 955.5,
+            "y": 280
+        },
+        "velocity": {
+            "x": 2,
+            "y": 0
+        },
+        "element": {},
+        "width": 60,
+        "height": 50
+    },
+    {
+        "position": {
+            "x": 1015.5,
+            "y": 280
+        },
+        "velocity": {
+            "x": 2,
+            "y": 0
+        },
+        "element": {},
+        "width": 60,
+        "height": 50
+    }
+]

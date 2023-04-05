@@ -1,11 +1,15 @@
 import { startGame } from "./game/gameEngine.js";
 import { pressedKeys } from "./game/gameEngine.js";
 
-document.querySelector('.start-btn')
-    .addEventListener('click', () => {
-        document.querySelector('.game-screen').classList.remove("hidden");
-        document.querySelector('.start-screen').classList.add("hidden");
-        startGame();
+document.querySelectorAll('.start-btn')
+    .forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelector('.game-screen').classList.remove("hidden");
+            document.querySelector('.start-screen').classList.add("hidden");
+            document.querySelector('.game-over').classList.add("hidden");
+            document.querySelector('.win-game').classList.add("hidden");
+            startGame();
+        })
     })
 
 

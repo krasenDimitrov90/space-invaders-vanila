@@ -17,13 +17,12 @@ body {
 }
 
 .start-screen.hidden,
-.game-screen.hidden {
+.game-screen.hidden,
+.game-over.hidden,
+.win-game.hidden {
     display: none;
 }
 
 .game-screen {
     position: relative;
 }
-
-
-

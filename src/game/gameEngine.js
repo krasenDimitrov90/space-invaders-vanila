@@ -15,6 +15,21 @@ const screenDimensions = {
     height: innerHeight,
 };
 
+
+const endGame = (winner) => {
+
+    if (winner) {
+        document.querySelector('.win-game').classList.remove("hidden");
+
+    } else {
+        document.querySelector('.game-over').classList.remove("hidden");
+    }
+    document.querySelector('.game-screen').innerHTML = '';
+
+    document.querySelector('.game-screen').classList.add("hidden");
+
+};
+
 const initGame = () => {
 
     const position = {
@@ -28,16 +43,19 @@ const initGame = () => {
     const spaceCraftEl = new SpaceCraft({ position, velocity }, 'spacecraft');
     const projectiles = [];
     const enemies = new Enemies(screenDimensions.width);
+    let gameIsOver = false;
 
-    console.log(enemies);
-    window.requestAnimationFrame(animate.bind(null, spaceCraftEl, projectiles, enemies));
+    window.requestAnimationFrame(animate.bind(null, spaceCraftEl, projectiles, enemies, gameIsOver));
 
 };
 
 
 
-const animate = (spaceCraftEl, projectiles, enemies, time) => {
+const animate = (spaceCraftEl, projectiles, enemies, gameIsOver, time) => {
 
+    if (gameIsOver) {
+        return;
+    }
 
     spaceCraftEl.moveSpaceCraft(pressedKeys, screenDimensions)
     spaceCraftEl.update();
@@ -69,15 +87,28 @@ const animate = (spaceCraftEl, projectiles, enemies, time) => {
     });
 
     const enemiesElements = document.querySelectorAll('.ufo');
+    if (enemiesElements.length === 0) {
+        gameIsOver = true;
+        endGame(true);
+    }
+    enemiesElements.forEach(enemie => {
+        if (detectColision(enemie, spaceCraftEl.element)) {
+            gameIsOver = true;
+            endGame(false);
+        }
+    });
 
     document.querySelectorAll('.projectile')
         .forEach(projectile => {
             let posY = parseInt(projectile.style.top);
 
-            enemiesElements.forEach(enemie => {
+
+            enemiesElements.forEach((enemie, idx) => {
                 if (detectColision(enemie, projectile)) {
+                    // const [row, col] = enemie.getAttribute('data-index').split('-').map(Number);
                     enemie.remove();
                     projectile.remove();
+
                 }
             });
 
@@ -87,7 +118,7 @@ const animate = (spaceCraftEl, projectiles, enemies, time) => {
             }
         });
 
-    window.requestAnimationFrame(animate.bind(null, spaceCraftEl, projectiles, enemies));
+    window.requestAnimationFrame(animate.bind(null, spaceCraftEl, projectiles, enemies, gameIsOver));
 };
 
 

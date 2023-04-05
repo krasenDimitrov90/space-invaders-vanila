@@ -6,7 +6,7 @@
     align-items: center;
 }
 
-.start-screen-btn-wrapper button {
+.btn-wrapper button {
     width: 300px;
     padding: 20px;
     font-size: 20px;
@@ -16,6 +16,6 @@
     cursor: pointer;
 }
 
-.start-screen-btn-wrapper button:hover {
+.btn-wrapper button:hover {
     background-color: #95a5a6;
 }

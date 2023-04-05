@@ -1,17 +1,20 @@
 
 class Charachter {
-    constructor({ position, velocity }, className) {
+    constructor({ position, velocity }, className, dataAtribute = null) {
         this.position = position;
         this.velocity = velocity;
-        this.element = this.createCharacter(className);
+        this.element = this.createCharacter(className, dataAtribute);
         this.width = null;
         this.height = null;
         this.draw();
     }
 
-    createCharacter(className) {
+    createCharacter(className, dataAtribute) {
         const c = document.createElement('div');
         c.classList.add(className);
+        if (dataAtribute) {
+            c.setAttribute('data-index', dataAtribute);
+        }
         return c;
     }
 
@@ -78,8 +81,8 @@ class Projectile extends Charachter {
 }
 
 class Ufo extends Charachter {
-    constructor({ position, velocity }, className) {
-        super({ position, velocity }, className);
+    constructor({ position, velocity }, className, dataAtribute) {
+        super({ position, velocity }, className, dataAtribute);
     }
 
     updateVelocity(screenDimensions, velocity) {
@@ -105,10 +108,10 @@ class Enemies {
         for (let i = 0; i < rows; i++) {
             enemies[i] = [];
             for (let j = 0; j < cols; j++) {
-                enemies[i].push(new Ufo({
+                enemies[i][j] = (new Ufo({
                     position: { x: quaterOfScreen + (j * 60), y: i * 60 },
                     velocity: { x: 2, y: 0 }
-                }, 'ufo'));
+                }, 'ufo', `${i}-${j}`));
             }
         }
         return enemies;

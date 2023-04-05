@@ -1,3 +1,11 @@
+.game-over,
+.win-game {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .spacecraft {
     position: absolute;
     background: url('/images/air-plain.png');
