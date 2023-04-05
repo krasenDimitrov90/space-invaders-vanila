@@ -1,4 +1,5 @@
 import { SpaceCraft, Projectile, Ufo, Enemies } from "./gameCharachters.js";
+import { detectColision } from "../utils/detectColision.js";
 
 
 export const pressedKeys = {
@@ -67,9 +68,20 @@ const animate = (spaceCraftEl, projectiles, enemies, time) => {
         });
     });
 
+    const enemiesElements = document.querySelectorAll('.ufo');
+
     document.querySelectorAll('.projectile')
         .forEach(projectile => {
             let posY = parseInt(projectile.style.top);
+
+            enemiesElements.forEach(enemie => {
+                if (detectColision(enemie, projectile)) {
+                    enemie.remove();
+                    projectile.remove();
+                }
+            });
+
+
             if (posY < 0) {
                 projectile.remove();
             }
