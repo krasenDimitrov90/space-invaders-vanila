@@ -3,7 +3,7 @@
 
 ## Installation
 
-To install the game, first ensure that you have Node.js installed on your computer. Then, clone the repository and navigate to the project directory in the command line. Run the following command to install the necessary dependencies:
+To install the game, first ensure that you have Node.js installed on your computer. Then, clone the repository, or download the zip and navigate to the project directory in the command line. Run the following command to install the necessary dependencies:
 
 ### `npm install`
 
@@ -18,4 +18,4 @@ This will open the game in your default browser. Use the arrow keys to move your
 
 ## Credits
 
-This game was for fun. 
+This game was made for practice. 
