@@ -51,14 +51,14 @@ class SpaceCraft extends Charachter {
 
         if (pressedKeys.ArrowRight && (posX + width) <= screenDimensions.width) {
             this.velocity.x = 5;
-            this.element.classList.add('right');
+            // this.element.classList.add('right');
         } else if (pressedKeys.ArrowLeft && posX >= 0) {
             this.velocity.x = -5;
-            this.element.classList.add('left');
+            // this.element.classList.add('left');
         } else {
             this.velocity.x = 0;
-            this.element.classList.remove('right');
-            this.element.classList.remove('left');
+            // this.element.classList.remove('right');
+            // this.element.classList.remove('left');
         }
 
         if (pressedKeys.ArrowUp && posY >= 0) {
